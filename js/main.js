@@ -9,7 +9,10 @@ function seleccionarArticulo() {
   listaArticulos += "3. Guantes\n";
   listaArticulos += "4. Botas\n";
 
-  const seleccion = prompt(listaArticulos + "\nPor favor, seleccione un artículo (1-4): ");
+  let seleccion = prompt(listaArticulos + "\nPor favor, seleccione un artículo (1-4): ");
+  while (seleccion <1 || seleccion > 4 || isNaN(seleccion)) {
+    seleccion = prompt("Por favor, ingrese un número valido entre las opciones para seleccionar un articulo: \n 1. Campera\n2. Casco\n3. Guantes\n4. Botas");
+  }
   let articuloSeleccionado = "";
   let precioArticulo = 0;
 
@@ -35,7 +38,11 @@ function seleccionarArticulo() {
   }
 
   if (articuloSeleccionado !== "") {
-    const seleccionPrecio = prompt(`Seleccione el precio para ${articuloSeleccionado} (1-3):\n1. Básico ($${precioArticulo})\n2. Estándar ($${precioArticulo + 200})\n3. Premium ($${precioArticulo + 400})`);
+   
+    let seleccionPrecio = prompt(`Seleccione el precio para ${articuloSeleccionado} (1-3):\n1. Básico ($${precioArticulo})\n2. Estándar ($${precioArticulo + 200})\n3. Premium ($${precioArticulo + 400})`);
+    while (seleccionPrecio < 1 || seleccionPrecio> 3 || isNaN(seleccionPrecio)) {
+        seleccionPrecio = prompt("Por favor, ingrese un número valido entre las opciones para seleccionar el modelo de su articulo: \n 1. Básico\n2. Estandar\n3. Premium");
+    }
     switch (parseInt(seleccionPrecio)) {
       case 1:
         precioArticulo = precioArticulo;
@@ -58,7 +65,10 @@ function seleccionarArticulo() {
 }
 
 function preguntarAgregarOtroArticulo() {
-    const agregarOtro = prompt("¿Desea agregar otros articulo? (si/no): ");
+    let agregarOtro = prompt("¿Desea agregar otros articulo? (si/no): ");
+    while (agregarOtro.toLowerCase() !== "si" && agregarOtro.toLowerCase() !== "no"){
+        agregarOtro = prompt("Por favor, responda 'si' o 'no': ");
+    }
     return agregarOtro.toLowerCase() === "si";
 }
 
