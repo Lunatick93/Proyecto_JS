@@ -76,4 +76,4 @@ while (agregarOtroArticulo) {
 
 mostrarMensaje(`El precio total a pagar es: $${precioTotal}`);
 
-mostrarMensaje(`¡Gracias por su compra! ¡Vuelvas prontos!`);
+mostrarMensaje(`¡Gracias por su compra! ¡Vuelvas prontos! \n NIKA`);
