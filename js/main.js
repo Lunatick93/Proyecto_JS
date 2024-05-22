@@ -1,79 +1,99 @@
-function mostrarMensaje(mensaje) {
-    alert(mensaje);
-}
+import { productos } from './productos.js';
 
-class Articulo {
-    constructor(nombre, precios) {
-        this.nombre = nombre;
-        this.precios = precios;
+const container = document.getElementById("container");
+const btnCarrito = document.getElementById("btn-carrito");
+const divCarrito = document.getElementById("carrito");
+const finalizarCompraDiv = document.getElementById("finalizar-compra");
+const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
+const totalCompraP = document.getElementById("total-compra");
+
+let mostrar = false;
+const botonMostrarOcultar = document.createElement("button");
+botonMostrarOcultar.innerText = "Mostrar";
+botonMostrarOcultar.onclick = () => mostrarOcultar(mostrar);
+
+btnCarrito.appendChild(botonMostrarOcultar);
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function agregarAlCarrito(id) {
+    const productoAAgregar = productos.find(producto => producto.id === id);
+    if (carrito.some(element => element.id === productoAAgregar.id)) {
+        alert("Ya agregaste este producto");
+    } else {
+        divCarrito.innerHTML = "";
+        carrito.push({ id: productoAAgregar.id, nombre: productoAAgregar.nombre, precio: productoAAgregar.precio });
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        if (mostrar) {
+            carrito.forEach(el => crearCard(el, "carrito"));
+        }
     }
 }
 
-let articulos = [
-    new Articulo("Campera", { basico: 550, estandar: 750, premium: 950 }),
-    new Articulo("Casco", { basico: 400, estandar: 600, premium: 800 }),
-    new Articulo("Guantes", { basico: 200, estandar: 400, premium: 600 }),
-    new Articulo("Botas", { basico: 350, estandar: 550, premium: 750 })
-];
-
-let precioTotal = 0;
-
-function seleccionarArticulo() {
-    let listaArticulos = "Lista de artículos:\n";
-    articulos.forEach((articulo, index) => {
-        listaArticulos += `${index + 1}. ${articulo.nombre}\n`;
-    });
-
-    let seleccion = prompt(listaArticulos + "\nPor favor, seleccione un artículo (1-4): ");
-    while (seleccion < 1 || seleccion > 4 || isNaN(seleccion)) {
-        seleccion = prompt("Por favor, ingrese un número válido entre las opciones para seleccionar un artículo: \n1. Campera\n2. Casco\n3. Guantes\n4. Botas");
+function quitarDelCarrito(id) {
+    divCarrito.innerHTML = "";
+    carrito = carrito.filter(el => el.id !== id);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    if (mostrar) {
+        carrito.forEach(el => crearCard(el, "carrito"));
     }
-
-    let articuloSeleccionado = articulos[seleccion - 1];
-
-    let precios = Object.keys(articuloSeleccionado.precios).map((modelo, index) => {
-        return `${index + 1}.${modelo}: $${articuloSeleccionado.precios[modelo]}`;
-    }).join("\n"); //utlizo el object.keys para poder tener las claves del array y asi poder usar los precios con el map y luego tomar el indice . Nose si esta bien utilizarlo asi 
-
-    let seleccionPrecio = prompt(`Precios disponibles para ${articuloSeleccionado.nombre}:\n${precios}\nSeleccione el precio (1-3):`);
-    while (seleccionPrecio < 1 || seleccionPrecio > 3 || isNaN(seleccionPrecio)) {
-        seleccionPrecio = prompt("Por favor, ingrese un número válido entre las opciones para seleccionar el modelo de su artículo: \n1. Básico\n2. Estándar\n3. Premium");
-    }
-
-    switch (parseInt(seleccionPrecio)) {
-        case 1:
-            precioTotal += articuloSeleccionado.precios.basico;
-            break;
-        case 2:
-            precioTotal += articuloSeleccionado.precios.estandar;
-            break;
-        case 3:
-            precioTotal += articuloSeleccionado.precios.premium;
-            break;
-        default:
-            break;
-    }
-
-    mostrarMensaje(`¡${articuloSeleccionado.nombre} (${Object.keys(articuloSeleccionado.precios)[seleccionPrecio - 1]}) agregado al carrito!`);
 }
 
-function preguntarAgregarOtroArticulo() {
-    let agregarOtro = prompt("¿Desea agregar otro artículo? (si/no): ");
-    while (agregarOtro.toLowerCase() !== "si" && agregarOtro.toLowerCase() !== "no") {
-        agregarOtro = prompt("Por favor, responda 'si' o 'no': ");
+function crearCard(producto, contenedor) {
+    const card = document.createElement("div");
+    card.className = producto.stock ? "card" : "no-card";
+
+    const titulo = document.createElement("p");
+    titulo.innerText = producto.nombre;
+    titulo.className = "titulo";
+
+    const imagen = document.createElement("img");
+    imagen.src = producto.imagen;
+    imagen.alt = "NOIMG";
+    imagen.className = "img";
+
+    const precio = document.createElement("p");
+    precio.innerText = `Precio: $${producto.precio}`;
+    precio.className = "titulo";
+
+    const botonAgregar = document.createElement("button");
+    botonAgregar.innerText = contenedor === "container" ? "Agregar al carrito" : "Quitar del carrito";
+    botonAgregar.className = "btn-add";
+    if (contenedor === "container") {
+        botonAgregar.onclick = () => agregarAlCarrito(producto.id);
+    } else {
+        botonAgregar.onclick = () => quitarDelCarrito(producto.id);
     }
-    return agregarOtro.toLowerCase() === "si";
+
+    card.appendChild(titulo);
+    card.appendChild(imagen);
+    card.appendChild(precio);
+    card.appendChild(botonAgregar);
+
+    const nuevoContenedor = document.getElementById(contenedor);
+    nuevoContenedor.appendChild(card);
 }
 
-mostrarMensaje("Bienvenidos a NIKA moto indumentaria");
-
-let agregarOtroArticulo = true;
-
-while (agregarOtroArticulo) {
-    seleccionarArticulo();
-    agregarOtroArticulo = preguntarAgregarOtroArticulo();
+function mostrarOcultar(estadoActual) {
+    if (estadoActual) {
+        mostrar = false;
+        divCarrito.innerHTML = "";
+        botonMostrarOcultar.innerText = "Mostrar carrito";
+        finalizarCompraDiv.style.display = "none";
+    } else {
+        mostrar = true;
+        carrito.forEach(el => crearCard(el, "carrito"));
+        botonMostrarOcultar.innerText = "Ocultar";
+        finalizarCompraDiv.style.display = "block";
+    }
 }
 
-mostrarMensaje(`El precio total a pagar es: $${precioTotal}`);
+function finalizarCompra() {
+    const total = carrito.reduce((acc, item) => acc + item.precio, 0);
+    totalCompraP.innerText = `Total a pagar: $${total}`;
+}
 
-mostrarMensaje(`¡Gracias por su compra! ¡Vuelvas prontos! \n NIKA`);
+productos.forEach(el => crearCard(el, "container"));
+carrito.forEach(el => crearCard(el, "carrito"));
+
+btnFinalizarCompra.onclick = finalizarCompra;
