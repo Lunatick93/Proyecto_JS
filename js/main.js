@@ -9,8 +9,8 @@ const totalCompraP = document.getElementById("total-compra");
 
 let mostrar = false;
 const botonMostrarOcultar = document.createElement("button");
-botonMostrarOcultar.innerText = "Mostrar";
-botonMostrarOcultar.onclick = () => mostrarOcultar(mostrar);
+botonMostrarOcultar.innerText = "Mostrar carrito";
+botonMostrarOcultar.onclick = () => mostrarOcultar();
 
 btnCarrito.appendChild(botonMostrarOcultar);
 
@@ -21,21 +21,19 @@ function agregarAlCarrito(id) {
     if (carrito.some(element => element.id === productoAAgregar.id)) {
         alert("Ya agregaste este producto");
     } else {
-        divCarrito.innerHTML = "";
-        carrito.push({ id: productoAAgregar.id, nombre: productoAAgregar.nombre, precio: productoAAgregar.precio });
+        carrito.push({ ...productoAAgregar });
         localStorage.setItem("carrito", JSON.stringify(carrito));
         if (mostrar) {
-            carrito.forEach(el => crearCard(el, "carrito"));
+            actualizarCarrito();
         }
     }
 }
 
 function quitarDelCarrito(id) {
-    divCarrito.innerHTML = "";
     carrito = carrito.filter(el => el.id !== id);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     if (mostrar) {
-        carrito.forEach(el => crearCard(el, "carrito"));
+        actualizarCarrito();
     }
 }
 
@@ -49,7 +47,7 @@ function crearCard(producto, contenedor) {
 
     const imagen = document.createElement("img");
     imagen.src = producto.imagen;
-    imagen.alt = "NOIMG";
+    imagen.alt = producto.nombre;
     imagen.className = "img";
 
     const precio = document.createElement("p");
@@ -74,18 +72,23 @@ function crearCard(producto, contenedor) {
     nuevoContenedor.appendChild(card);
 }
 
-function mostrarOcultar(estadoActual) {
-    if (estadoActual) {
+function mostrarOcultar() {
+    if (mostrar) {
         mostrar = false;
         divCarrito.innerHTML = "";
         botonMostrarOcultar.innerText = "Mostrar carrito";
         finalizarCompraDiv.style.display = "none";
     } else {
         mostrar = true;
-        carrito.forEach(el => crearCard(el, "carrito"));
-        botonMostrarOcultar.innerText = "Ocultar";
+        actualizarCarrito();
+        botonMostrarOcultar.innerText = "Ocultar carrito";
         finalizarCompraDiv.style.display = "block";
     }
+}
+
+function actualizarCarrito() {
+    divCarrito.innerHTML = "";
+    carrito.forEach(el => crearCard(el, "carrito"));
 }
 
 function finalizarCompra() {
@@ -94,6 +97,5 @@ function finalizarCompra() {
 }
 
 productos.forEach(el => crearCard(el, "container"));
-carrito.forEach(el => crearCard(el, "carrito"));
 
 btnFinalizarCompra.onclick = finalizarCompra;
