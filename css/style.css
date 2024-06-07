@@ -1,41 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Cambiar a space-around para distribuir los elementos de forma equitativa */
+    padding: 20px;
+}
+
+
 .card {
+    width: 200px;
+    padding: 10px;
     border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    display: inline-block;
-    width: 150px;
+    border-radius: 5px;
     text-align: center;
 }
 
-.no-card {
-    border: 1px solid #f00;
-    padding: 10px;
-    margin: 10px;
-    display: inline-block;
-    width: 150px;
-    text-align: center;
-}
-
-.titulo {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.img {
-    width: 100%;
+.card img {
+    max-width: 100%;
     height: auto;
 }
 
-.btn-add {
-    background-color: #28a745;
+.carrito {
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.carrito h2 {
+    margin-bottom: 10px;
+}
+
+.carrito ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.carrito li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.carrito li:last-child {
+    border-bottom: none;
+}
+
+.carrito .total {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn {
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 16px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-#finalizar-compra {
-    margin-top: 20px;
+.btn:hover {
+    background-color: #0056b3;
 }
 
 h1{
