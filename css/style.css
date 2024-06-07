@@ -5,14 +5,14 @@ body {
     background-color: #f4f4f4;
 }
 
-
 .container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Cambiar a space-around para distribuir los elementos de forma equitativa */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     padding: 20px;
+    gap: 20px;
 }
-
 
 .card {
     width: 200px;
@@ -20,6 +20,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
+    flex: 0 0 auto;
 }
 
 .card img {
@@ -28,9 +29,14 @@ body {
 }
 
 .carrito {
+    display: flex;
+    flex-direction: row; /* Cambiado a fila */
+    flex-wrap: nowrap;
+    overflow-x: auto;
     padding: 20px;
     border-top: 1px solid #ccc;
     margin-top: 20px;
+    gap: 20px;
 }
 
 .carrito h2 {
@@ -44,9 +50,10 @@ body {
 
 .carrito li {
     border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
+    flex: 0 0 auto; /* Para mantener la horizontalidad */
 }
 
 .carrito li:last-child {
@@ -71,9 +78,6 @@ body {
     background-color: #0056b3;
 }
 
-h1{
-    text-align: center;
-}
-h2{
+h1, h2 {
     text-align: center;
 }

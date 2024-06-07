@@ -1,7 +1,6 @@
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+export let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Documento cargado. Actualizando carrito...');
     actualizarCarrito();
 });
 
@@ -16,10 +15,25 @@ export function agregarAlCarrito(id) {
                 if (!carrito.some(item => item.id === productoAAgregar.id)) {
                     carrito.push(productoAAgregar);
                     localStorage.setItem('carrito', JSON.stringify(carrito));
-                    console.log('Producto agregado al carrito:', carrito);
                     actualizarCarrito();
+                    Toastify({
+                        text: `${productoAAgregar.nombre} agregado al carrito`,
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "bottom", // `top` or `bottom`
+                        position: 'right', // `left`, `center` or `right`
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                    }).showToast();
                 } else {
-                    alert('Este producto ya está en el carrito');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al Agregarlo",
+                        text: "Este producto ya está en el carrito",
+                        footer: '<a href="#">Why do I have this issue?</a>'
+});
+                    
                 }
             } else {
                 alert('Este producto no está disponible');
@@ -28,16 +42,36 @@ export function agregarAlCarrito(id) {
         .catch(error => console.error('Error al agregar al carrito:', error));
 }
 
+export function quitarDelCarrito(id) {
+    // Mostrar el SweetAlert de confirmación
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "No podrás revertir esto.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminarlo",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Eliminar el producto del carrito
+            carrito = carrito.filter(producto => producto.id !== id);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
 
-function quitarDelCarrito(id) {
-    console.log('Quitando del carrito:', id);
-    carrito = carrito.filter(producto => producto.id !== id);
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    actualizarCarrito();
+            // Mostrar SweetAlert de éxito
+            Swal.fire({
+                title: "¡Eliminado!",
+                text: "Tu producto ha sido eliminado.",
+                icon: "success"
+            });
+        }
+    });
 }
 
+
 function actualizarCarrito() {
-    console.log('Actualizando carrito...');
     const carritoContainer = document.getElementById('carrito');
     carritoContainer.innerHTML = '';
     carrito.forEach(producto => {
@@ -60,7 +94,6 @@ function calcularTotal() {
 const btnCarrito = document.getElementById('btn-carrito');
 const carritoDiv = document.getElementById('carrito');
 btnCarrito.addEventListener('click', () => {
-    console.log('Botón de carrito clickeado. Estado actual:', carritoDiv.style.display);
     if (carritoDiv.style.display === 'none' || carritoDiv.style.display === '') {
         carritoDiv.style.display = 'block';
         btnCarrito.innerText = 'Ocultar Carrito';
@@ -71,12 +104,20 @@ btnCarrito.addEventListener('click', () => {
 });
 
 document.getElementById('btn-finalizar-compra').addEventListener('click', () => {
-    // Lógica para finalizar la compra
-    alert('Compra finalizada');
+    const total = carrito.reduce((acc, producto) => acc + producto.precio, 0);
+    Swal.fire({
+        title: "Finalizar Compra",
+        text: `El total que tenes que pagar es : $${total}`,
+        icon: "success"
+                });
+    
+    
+    carrito = [];
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
 });
 
 function crearCard(producto, enCarrito = false) {
-    console.log('Creando card para producto:', producto);
     const card = document.createElement('div');
     card.className = producto.stock ? 'card' : 'no-card';
 
