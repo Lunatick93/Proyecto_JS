@@ -34,11 +34,15 @@ function crearCard(producto) {
     precio.innerText = `Precio: $${producto.precio}`;
     precio.className = 'titulo';
 
+    const estado = document.createElement('p');
+    estado.innerText = producto.stock ? '' : 'AGOTADO';
+    estado.className = 'estado-agotado';
+
     const botonAgregar = document.createElement('button');
     botonAgregar.innerText = 'Agregar al carrito';
     botonAgregar.className = 'btn-add';
     botonAgregar.onclick = () => agregarAlCarrito(producto.id);
-
+    card.appendChild(estado);
     card.appendChild(titulo);
     card.appendChild(imagen);
     card.appendChild(precio);

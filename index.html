@@ -1,29 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tercera Preentrega</title>
+    <title>NIKA Moto Indumentaria</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
+
 <body>
-    <h1> NIKA moto indumentaria</h1>
-    <h2>Nuestros Productos</h2>
-    <div class="container" id="container"></div>
-    <button id="btn-carrito">Ver Carrito</button>
-    <div class="carrito" id="carrito"></div>
-    <div id="finalizar-compra" style="display: none;">
-        <button id="btn-finalizar-compra">Finalizar Compra</button>
-        <p id="total-compra"></p>
+    
+    <header class="bg-dark text-white p-3">
+        <div class="container-fluid header-text d-flex justify-content-center d-flex align-items-center">
+            <img src="img/NIKA logo.png" alt="Logo de NIKA" class="logo me-3">
+            <h1 class="mb-0 custom-margin-left">NIKA Moto Indumentaria</h1>
+        </div>
+    </header>
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NIKA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#carrito">Carrito</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center py-5">
+        <h1 class="display-4 mb-4">Bienvenido a NIKA Moto Indumentaria</h1>
+        <p class="lead">Descubre nuestra amplia selección de ropa y accesorios para los amantes de las motos. Desde camperas y botas hasta guantes y cascos, en NIKA encontrarás todo lo que necesitas para mantenerte seguro y con estilo en la carretera.</p>
+        <p class="lead">Con productos de alta calidad y diseños modernos, NIKA es tu destino para equiparte con lo mejor en indumentaria para motociclistas.</p>
     </div>
+
+    <section class="banner">
+        <div class="container-fluid mx-2 my-4">
+            <img src="img/banner1.jpg" alt="Banner" class="img-fluid">
+        </div>
+    </section>
+
+       
+    <div class="container my-4">
+        <h2 id="productos">Nuestros Productos</h2>
+        <div class="container" id="container"></div>
+    
+        <div class="banner">
+            <img src="img/banner2.jpg" alt="Banner 2" class="img-fluid">
+        </div>
+        <h2 id="productos">Tus Productos Seleccionados</h2>
+        <div class="carrito" id="carrito"></div>
+        <div id="finalizar-compra" class="d-flex flex-column align-items-center mt-4" style="display: none;">
+            <button id="btn-finalizar-compra" class="btn btn-success">Finalizar Compra</button>
+            <p id="total-compra" class="mt-2" style="display: none;"></p>
+        </div>
+    </div>
+
+    <div class="final">
+        <h3>¡Gracias por confiar en NIKA Moto Indumentaria!</h3>
+        <p>#bikelife #indumentaria #rutasegura</p>
+    </div>
+
+    <footer class="bg-dark text-white p-3">
+        <div class="container-fluid d-flex flex-column align-items-center">
+            <img src="img/NIKA logo.png" alt="Logo de NIKA" class="logo mb-3">
+            <p class="mb-0">Diseñado por: Nicolas Esteban Quispe</p>
+        </div>
+    </footer>
+
+    >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pfFdggYM0PZgiWV3e6N0VxfVVrBS7Th2mLroPbAeZcBzHIsRy0A3LLJbyTtrttse" crossorigin="anonymous"></script>
     <script type="module" src="js/carrito.js"></script>
     <script type="module" src="js/main.js"></script>
     
 </body>
+
 </html>
-
-

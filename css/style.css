@@ -1,26 +1,74 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f4;
 }
 
-.container {
+header {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+}
+
+header .logo {
+    width: 130px;
+    height: auto;
+}
+
+.header-text h1 {
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer .logo {
+    width: 130px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.header-text h1 {
+    margin-left: 10px;
+}
+
+.banner {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+.banner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    
+}
+
+h1{   
+    text-align: center;
+}
+h2{  
+    text-align: center;   
+}
+
+#container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
-    gap: 20px;
 }
 
 .card {
     width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 25px;
     text-align: center;
-    flex: 0 0 auto;
+    margin: 10px;
 }
 
 .card img {
@@ -28,15 +76,23 @@ body {
     height: auto;
 }
 
+.no-card {
+    position: relative;
+     width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px;
+}
+.no-card img {
+    max-width: 100%;
+    height: auto;
+}
 .carrito {
-    display: flex;
-    flex-direction: row; /* Cambiado a fila */
-    flex-wrap: nowrap;
-    overflow-x: auto;
     padding: 20px;
     border-top: 1px solid #ccc;
     margin-top: 20px;
-    gap: 20px;
 }
 
 .carrito h2 {
@@ -50,10 +106,9 @@ body {
 
 .carrito li {
     border-bottom: 1px solid #ccc;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
-    flex: 0 0 auto; /* Para mantener la horizontalidad */
 }
 
 .carrito li:last-child {
@@ -64,6 +119,7 @@ body {
     font-weight: bold;
     margin-top: 10px;
 }
+
 
 .btn {
     background-color: #007bff;
@@ -78,6 +134,55 @@ body {
     background-color: #0056b3;
 }
 
-h1, h2 {
+.btn-add {
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #687380;
+}
+
+#carrito {
+    display: flex; 
+    flex-wrap: nowrap; 
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#carrito > * {
+    flex: 0 0 auto; 
+    margin-right: 10px;
+}
+
+.estado-agotado {
+    position: absolute;
+    bottom: 33px;
+    left: 0;
+    right: 0;
+    color: red;
+    font-weight: bold;
+  
+}
+
+.final {
     text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.finalizar-compra {
+    display: none; 
+}
+
+#productos {
+    color:white !important;
+    text-align: center;
+    background-color: #343a40;
 }
